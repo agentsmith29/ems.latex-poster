@@ -1,7 +1,7 @@
 % ====================
 % Dependencies
 % ====================
-\usepackage[orientation=portrait, size=custom, width=87.1, height=121.9,scale=1.3]{beamerposter}
+\usepackage[orientation=portrait, size=custom, width=87.1, height=121.9,scale=1]{beamerposter}
 \usepackage{exscale}
 \usepackage{ragged2e}
 \usepackage{changepage}
@@ -16,73 +16,83 @@
 \usepackage{framed}
 \usepackage{cropmarks}
 \usepackage{ifthen}
-%\usepackage{customitemize}
 \usepackage{booktabs}
+\usepackage{biblatex} %Imports biblatex package
+\AtNextBibliography{\small}
 
+% Disable navigations
+\beamertemplatenavigationsymbolsempty
+
+% ========================================================================================================================================
 % List
+% ========================================================================================================================================
 \def\@listi{\leftmargin\leftmargini
 \topsep 1ex % spacing before
 \parsep 0\p@ \@plus\p@
 \itemsep 0.5ex} % spacing between
 
+%  ========================================================================================================================================
 % Itemize
-
+%  ========================================================================================================================================
 \setbeamertemplate{itemize item}{\raise0.5ex \hbox{\vrule width 0.5ex height 0.5ex}}
 \setbeamertemplate{itemize subitem}{\raise0.3ex \hbox{\vrule width 0.5ex height 0.5ex}}
 \setbeamertemplate{itemize subsubitem}{\raise0.2ex \hbox{\vrule width 0.5ex height 0.5ex}}
 
+% ========================================================================================================================================
 % Enumerate
-
+% ========================================================================================================================================
 \setbeamertemplate{enumerate item}{\insertenumlabel.}
 \setbeamertemplate{enumerate subitem}{\insertsubenumlabel.}
 \setbeamertemplate{enumerate subsubitem}{\insertsubsubenumlabel.}
 
+%  ========================================================================================================================================
 % Equation
+%  ========================================================================================================================================
 \setlength\belowdisplayshortskip{2ex}
 
+% ========================================================================================================================================
 % Caption
+% ========================================================================================================================================
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}[period]
 \setlength{\abovecaptionskip}{2ex}
 \setlength{\belowcaptionskip}{1ex}
 
+% ========================================================================================================================================
 % Heading
+% ========================================================================================================================================
 \newcommand\heading[1]
 {%
   \par\bigskip
  {\usebeamerfont{heading}\usebeamercolor[fg]{heading}#1}\par\smallskip
 }
 
-% ====================
-% Fonts
-% ====================
+% Heading alias ( -> section)
+\renewcommand\section[1]{\heading{#1}}
 
-%\setbeamerfont{headline}{family=\Raleway}
+
+% ========================================================================================================================================
+% Fonts
+% ========================================================================================================================================
+
 \setbeamerfont{headline title}{size=\LARGE,series=\bfseries}
 \setbeamerfont{headline author}{size=\normalsize}
 \setbeamerfont{headline institute}{size=\normalsize}
 
-%\setbeamerfont{block title}{family=\Raleway,size=\large,series=\bfseries}
-%\setbeamerfont{heading}{family=\Lato,series=\bfseries}
+% Block Title
+\setbeamerfont{block title}{size=\large,series=\bfseries}
+
+% Heading
+\setbeamerfont{heading}{series=\bfseries}
+
 \setbeamerfont{caption}{size=\small}
 \setbeamerfont{footline}{size=\normalsize}
 
 
-%\newfontfamily\Raleway[Ligatures=TeX]{Roboto}
-%\newfontfamily\Lato[Ligatures=TeX]{Roboto}
-%\usefonttheme{professionalfonts}
-%\setsansfont{Roboto}[
-%  UprightFont=*-Light,
-%  ItalicFont=*-LightItalic,
-%  BoldFont=*-Regular,
-%  BoldItalicFont=*-Italic
-%]
 
-
-
-
-
-% ===============
+% ========================================================================================================================================
+% Inputs for template
+% ========================================================================================================================================
 \newcommand{\organizationDE}[1]{
     \newcommand{\insertOrganizationDE}{#1}
 }
@@ -100,6 +110,9 @@
 \newcommand{\tel}[1]{\newcommand{\inserttel}{#1}}
 \newcommand{\website}[1]{\newcommand{\insertwebsite}{#1}}
 
+% ========================================================================================================================================
+% Margins
+% ========================================================================================================================================
 \newlength{\leftma}
 \setlength{\leftma}{8.5cm}
 
@@ -123,16 +136,20 @@
 \newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
 
 \usetikzlibrary{calc} 
+
+% ========================================================================================================================================
+% HEADING
+% ========================================================================================================================================
 \setbeamertemplate{headline}{  
   \leavevmode
   
     \begin{beamercolorbox}[colsep*=0ex,left]{header}
         \begin{tikzpicture}[remember picture, overlay]
             \node[anchor=north west] at ([xshift=20mm, yshift=-7.5cm]current page.north west) 
-                {\includegraphics[width=5cm]{images/ems.pdf}};
-            \node[anchor=north east] at ([xshift=-\rightma, yshift=-0.5\topma]current page.north east) 
+                {\includegraphics[width=5cm]{logos/ems.pdf}};
+            \node[anchor=north east] at ([xshift=-\rightma, yshift=-1.7\topma]current page.north east) 
                 {
-                \includegraphics[width=\sizeLogo]{images/logo-CMYK.eps}
+                \includegraphics[width=\sizeLogo]{logos/logo-CMYK.eps}
                 };
         \end{tikzpicture}
 \vspace{1.5\topma}
@@ -141,7 +158,7 @@
         \vspace{6\topma}
         %\begin{wrapfigure}[3 ]{r}{\sizeLogo} 
         %   \begin{figure}
-        %       \includegraphics[width=\sizeLogo]{images/logo-CMYK.eps}
+        %       \includegraphics[width=\sizeLogo]{logos/logo-CMYK.eps}
         %   \end{figure}    
         %\end{wrapfigure}
         \setstretch{1.0}
@@ -160,7 +177,7 @@
         \hspace{\leftma}
        \begin{beamercolorbox}[wd=\dimexpr\paperwidth-\leftma-\rightma\relax]{}
             \usebeamerfont{headline author}\usebeamercolor[fg]{headline author}\insertauthor\\[-0.5ex]
-            \usebeamerfont{headline institute}\usebeamercolor[fg]{headline institute} \insertInstituteDE~$\vert$~\textit{\insertinstitute}
+            \usebeamerfont{headline institute}\usebeamercolor[fg]{headline institute} \insertInstituteDE~$\vert$~\textit{\insertinstitute}~$\vert$~Christian Doppler Laboratoy for Structured Matter Based Sensing
         \end{beamercolorbox}  
     \end{minipage}
 \end{beamercolorbox}
@@ -170,7 +187,10 @@
 \newlength{\textspace}
 \setlength{\textspace}{4cm}
 
+
+% ========================================================================================================================================
 % Block
+% ========================================================================================================================================
 \setbeamertemplate{block begin}
 {
 \begin{beamercolorbox}[colsep*=0ex,dp=3ex,left, wd=\dimexpr\linewidth-0.5\textspace\relax]{block title}     
@@ -180,7 +200,8 @@
         {  
             \usebeamerfont{block title}\textbf{\insertblocktitle}
             \vskip-2ex
-            \begin{beamercolorbox}[colsep=0.025ex,  wd=\dimexpr\linewidth-0.5\textspace]{block separator}\end{beamercolorbox} 
+             \ifthenelse{\equal{\insertblocktitle}{}}{}
+            {\begin{beamercolorbox}[colsep=0.025ex,  wd=\dimexpr\linewidth-0.5\textspace]{block separator}\end{beamercolorbox}}
             %\begin{beamercolorbox}[wd=0.5cm\relax]{block title}\end{beamercolorbox}
             \end{beamercolorbox}
      
@@ -192,7 +213,8 @@
         { 
             \usebeamerfont{block title}\insertblocktitle
             \vskip-2ex
-            \begin{beamercolorbox}[colsep=0.025ex,  wd=\dimexpr\linewidth-0.5\textspace]{block separator}\end{beamercolorbox} 
+            \ifthenelse{\equal{\insertblocktitle}{}}{}
+            {\begin{beamercolorbox}[colsep=0.025ex,  wd=\dimexpr\linewidth-0.5\textspace]{block separator}\end{beamercolorbox}}
             %\begin{beamercolorbox}[wd=0.5cm\relax]{block title}\end{beamercolorbox}
             \end{beamercolorbox}
      
@@ -214,7 +236,9 @@
 }
 
 
-
+% ========================================================================================================================================
+% Footline
+% ========================================================================================================================================
 \setbeamertemplate{footline}{
   \leavevmode%
     \begin{beamercolorbox}[wd=\paperwidth, ht=8cm, center]{footer}%  
@@ -225,15 +249,24 @@
              \textbf{\insertOrganizationDE~-~\insertInstituteDE}\\ %\newline
             \insertaddress~$\vert$~ Tel.: \inserttel~$\vert$~ \insertwebsite
      \end{minipage}
-     \vspace{1.8cm}
+     \vspace{2cm}
      \hspace{-1cm}
       \begin{minipage}{0.2\linewidth}
       \centering
-        \includegraphics[height=5cm]{images/Logo_EMS.pdf}
+        \includegraphics[height=5cm]{logos/Logo_EMS.pdf}
      \end{minipage}
     \end{beamercolorbox}
     }
 \endinput
+
+
+\setbeamertemplate{footnote}{
+    \hspace*{1.7cm}%
+    \raisebox{1.7cm}{\insertfootnotemark}
+    \parbox[b][2cm]{7.5cm}{
+        \insertfootnotetext%
+    }%
+}
 
 
 
