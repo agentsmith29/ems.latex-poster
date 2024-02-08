@@ -1,4 +1,4 @@
-# Overleaf Vorlage für ein EMS Poster
+# Latex Vorlage für ein EMS Poster
 Die Vorlage orientiert sich an der offiziellen Vorlage, ist jedoch, auch Latex geschuldete nicht 1:1 gleich.
 
 [Beispiel](images/EMS_Template-1.pdf)
