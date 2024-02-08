@@ -35,6 +35,5 @@ Das eigentliche Template. Hier sind enebfalls anpassungen möglich. Einige spezi
 # Fehler und Fehlerkorrekturen
 Die Vorlage ist nicht fehlerfrei. Es kann passieren, dass in Spezialfällen zB Farben angepasst oder Formatierungen manuell geändert werden müssen. 
 # Adaptionen
-Sind Adaptionen notwendig und erscheinen diese für alle User sinnvoll (z.B Farbanpassungen) können diese gepusht werden. Bei spzifischen Adaptionen (zB inclusion von Firmenpartner=
-kann ein eigener Branch geöffnet werden.
+Sind Adaptionen notwendig und erscheinen diese für alle User sinnvoll (z.B Farbanpassungen) können diese gepusht werden. Bei spezifischen Adaptionen (zB Inklusion von Firmenpartner) kann ein eigener Branch geöffnet werden.
 
