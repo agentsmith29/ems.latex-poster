@@ -1,0 +1,128 @@
+% cropmarks.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cropmarks}[2024/01/30 Crop marks for A0-sized Beamer document]
+
+% Define the length for the crop marks
+\newlength{\cropmarklength}
+\setlength{\cropmarklength}{1.5cm}
+
+% Define the distance between the page border and the crop marks
+\newlength{\cropmarkdistance}
+\setlength{\cropmarkdistance}{5mm}
+
+
+\newlength{\paperwd}
+
+
+\newlength{\paperht}
+
+% A0
+\setlength{\paperwd}{841mm}
+\setlength{\paperht}{1189mm}
+
+% A1
+%\setlength{\paperwd}{594mm}
+%\setlength{\paperht}{841mm}
+
+% A3
+%\setlength{\paperwd}{297mm}
+%\setlength{\paperht}{420mm}
+
+
+% Draw crop marks
+\newcommand{\drawcropmarks}{
+   \begin{tikzpicture}[remember picture, overlay]  
+        %\drawoutlines
+        \drawcropmarkbottomleft
+        \drawcropmarkbottomright
+        \drawcropmarktopright
+        \drawcropmarktopleft
+        %\drawCenterCross
+    \end{tikzpicture}
+}
+
+\newcommand{\drawcropmarkbottomleft}{
+\draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd-\cropmarkdistance,-0.5\paperht)$) -- 
+            ++(-\cropmarklength+\cropmarkdistance, 0);
+            
+            \draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd ,-0.5\paperht-\cropmarkdistance)$) -- 
+            ++(0, -\cropmarklength+\cropmarkdistance );
+}
+
+\newcommand{\drawcropmarkbottomright}{
+\draw[thick,black] ($(current page.center)+
+            (0.5\paperwd+\cropmarkdistance,-0.5\paperht)$) -- 
+            ++(\cropmarklength-\cropmarkdistance, 0);
+            
+            \draw[thick,black] ($(current page.center)+
+            (0.5\paperwd ,-0.5\paperht-\cropmarkdistance)$) -- 
+            ++(0, -\cropmarklength+\cropmarkdistance );
+}
+
+\newcommand{\drawcropmarktopright}{
+\draw[thick,black] ($(current page.center)+
+            (0.5\paperwd+\cropmarkdistance,0.5\paperht)$) -- 
+            ++(\cropmarklength-\cropmarkdistance, 0);
+            
+            \draw[thick,black] ($(current page.center)+
+            (0.5\paperwd ,0.5\paperht+\cropmarkdistance)$) -- 
+            ++(0, \cropmarklength-\cropmarkdistance );
+}
+
+\newcommand{\drawcropmarktopleft}{
+\draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd-\cropmarkdistance, 0.5\paperht)$) -- 
+            ++(-\cropmarklength+\cropmarkdistance, 0);
+            
+            \draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd, 0.5\paperht+\cropmarkdistance)$) -- 
+            ++(0, \cropmarklength-\cropmarkdistance );
+}
+
+\newcommand{\drawoutlines}{
+\draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd ,-0.5\paperht)$) -- 
+            ++(\paperwd, 0);
+            
+         \draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd ,0.5\paperht)$) -- 
+            ++(\paperwd, 0);
+            
+        \draw[thick,black] ($(current page.center)+
+            (0.5\paperwd ,0.5\paperht)$) -- 
+            ++(0, -\paperht);
+            
+        \draw[thick,black] ($(current page.center)+
+            (-0.5\paperwd ,0.5\paperht)$) -- 
+            ++(0, -\paperht);
+}
+
+\newcommand{\drawCenterCross}{
+    
+    \draw[thick,black] ($(current page.center)+(0,-\cropmarklength)$) -- ++(0,2\cropmarklength);
+    
+    \draw[thick,black] ($(current page.center)+(-\cropmarklength,0mm)$) -- ++(2\cropmarklength,0);
+    
+    \draw[thick,black] ($(current page.center)+
+    (-0.5\paperwd + 1.5\cropmarklength,-0.5\paperht + 1.5\cropmarklength)$) -- 
+    ++(0.5\paperwd - 2.5\cropmarklength, 0.5\paperht - 2.5\cropmarklength);
+        
+        
+\draw[thick,black] ($(current page.center)+
+(0.5\paperwd - 1.5\cropmarklength,-0.5\paperht + 1.5\cropmarklength)$) -- 
+++(-0.5\paperwd+ 2.5\cropmarklength, 0.5\paperht- 2.5\cropmarklength);
+
+
+\draw[thick,black] ($(current page.center)+
+(0.5\paperwd - 1.5\cropmarklength, 0.5\paperht- 1.5\cropmarklength)$) -- 
+++(-0.5\paperwd+ 2.5\cropmarklength, -0.5\paperht+ 2.5\cropmarklength);
+
+
+\draw[thick,black] ($(current page.center)+
+(-0.5\paperwd + 1.5\cropmarklength, 0.5\paperht- 1.5\cropmarklength)$) -- 
+++(0.5\paperwd- 2.5\cropmarklength, -0.5\paperht+ 2.5\cropmarklength);
+}
+
+\endinput

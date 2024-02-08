@@ -1,0 +1,108 @@
+\begin{frame}[t]
+\begin{columns}[t]
+\separatorcolumn
+\begin{column}{\colwidth}
+    \begin{block}{Abstract}
+
+    
+       The demand for compact and high-performance focusing lenses operating at millimeter-scale wavelengths around 60GHz frequencies has spurred innovative approaches to lens design. However, regular devices in this wavelength regime are bulky or may suffer from poor performance. Inverse design methodologies are a paradigm shift in lens engineering. Formulating the required functionality (objective function) and algorithmically looking for the desired material topology is an inversion of the traditional approach. Using inverse-designed topologies allows exploiting a material's capabilities beyond its usual application area and necessary dimensions. This paper presents an inverse-designed lens operating in the near-field of a 60 GHz patch antenna. With a size of around 15x15x15mm compared to their regular counterparts, the presented structure promises enhanced performance by maintaining a reduced form factors. 
+    \end{block}
+
+    \begin{block}{Problem Formulation}
+      Topology optimization is a robust engineering methodology employed to design structures and systems by optimizing their material distribution within a given space, subject to certain performance constraints. 
+      The ultimate goal is to find the optimal configuration of material distribution, which is subjected to a desired performance.  This approach is particularly relevant in the field mechanics, where often satiffnes or weight should be minimized, however, it can also be used to explore and discover innovative designs that may not be intuitive through traditional engineering approaches.\\
+      For high-frequency applications, the physics of the problem is formulated based on the Maxwell Equations from which the wave equations (Eq. \ref{eq:time_harmonic_wave_equation}) can be derived. 
+        \begin{equation}
+          \begin{aligned}   
+            \underbrace{
+            \nabla \times \left[ \bm{\mu}_r^{-1} \left ( \nabla \times \bm{E} \right ) \right]
+            -\omega^2\mu_0\varepsilon }_{\mathcal{J}(\varepsilon)}  - \underbrace{\iu \omega \sigma \bm{E}}_{\bm{b}} &= \bm{0}, & \bm{r} \in \Omega \subset \mathbb{R}^3
+            \label{eq:time_harmonic_wave_equation}
+        \end{aligned}
+        \end{equation}
+        To solve a problem using topology optimization, the whole problem is formulated in a continuous constrained optimization. Thus, the permittivity is interpolated based on the continuous parameter field 
+        $\xi(\bm{r}) \in [0, 1]$.The parameter space is linear interpolated and allowed to continuously vary between air ($\varepsilon_{r,  \mathrm{Air}} \rightarrow \xi=0$) and material ($\varepsilon_{r, \mathrm{Opt}} \rightarrow \xi=1$):
+    \begin{align}
+        \varepsilon_r(\xi(\bm{r})) = \varepsilon_{r, \mathrm{Opt}} + \xi(\bm{r})\left ( \varepsilon_{r, \mathrm{Air}} - \varepsilon_{r, \mathrm{Opt}} \right )
+    \end{align}
+    To yield manufacturable designs or meet certain criteria, the objective function is subjected to $\mathcal{N}_e$ equality (Eq. \ref{eq:objective_function},  $\mathrm{c}_e$) and $\mathcal{N}_i$ inequality constraints (Eq. \ref{eq:objective_function},  $\mathrm{c}_i$). These are limitations that the optimized design must satisfy. Using this, allows to formulate the problem as follows
+     \begin{equation}
+     \begin{aligned}
+       \mathrm{Maximize} &  &\\
+        & \max \mathcal{J}(\xi(\bm{r})), &\xi(\bm{r}) \in [0, 1] \rightarrow \mathbb{R}\\
+        \mathrm{subject~to} &  &\\
+        & \mathrm{c}_e(\xi(\bm{r})) = 0, & i \in [0, 1, ... \mathcal{N}_e]\\
+        & \mathrm{c}_i(\xi(\bm{r})) < 0, & i \in [0, 1, ... \mathcal{N}_i]\\
+    \end{aligned}
+    \label{eq:objective_function}
+    \end{equation}
+    The objective function $\mathit{J}(\xi)$ represents the performance metric to be optimized. 
+    To control the spatial design field variation and yield to a design that also mimizes the intermediate values between $0$ and $1$, an soothing filter with an radius $r_f$ to avoid too small features
+    \begin{equation}
+        \begin{aligned}
+        \xi_f(\mathbf{r}) = \xi(\mathbf{r}) + r^2_f\nabla^2\xi_f(\mathbf{r})
+        \end{aligned}
+    \end{equation}
+    and a projection filter to obtain a binarized density distribution is applied
+\begin{equation}
+    \begin{aligned}
+        \xi_p(\mathbf{r}) = \dfrac{
+        \tanh \left( {\beta \cdot \eta} \right)+ \tanh{ \left( \beta \left( \xi_f - \eta \right) \right) }
+        }
+        { \tanh{\left( \beta \cdot \eta \right)} + \tanh{\left( \beta \left( 1-\eta \right)\right)} },  & \beta \in [1, \infty[, & \eta \in [0, 1]
+    \end{aligned}
+\end{equation}
+where $\beta$ controls the threshold sharpness and $\eta$ the threshold value.
+  
+
+
+
+
+
+
+
+
+    
+    \end{block}   
+
+\end{column}
+\separatorcolumn
+\begin{column}{\colwidth}
+    
+    \begin{block}{Fourier Transform}   
+    \begin{equation}
+     \begin{aligned}
+       \mathrm{Maximize} &\\
+        & \max \mathcal{J}(\varepsilon_r(\xi_p(\bm{r}))) \\
+        \mathrm{subject~to} &  \\
+        & \mathrm{c}_e(\xi(\bm{r})) = 0\\
+        & \mathrm{c}_i(\xi(\bm{r})) < 0\\
+         \mathrm{with} &  \\
+        &\varepsilon_r(\xi(\bm{r})) = \varepsilon_{r, \mathrm{Opt}} + \xi(\bm{r})\left ( \varepsilon_{r, \mathrm{Air}} - \varepsilon_{r, \mathrm{Opt}} \right ) &\\
+        & \xi_f(\mathbf{r}) = \xi(\mathbf{r}) + r^2_f\nabla^2\xi_f(\mathbf{r})& \\
+        &  \xi_p(\mathbf{r}) = \dfrac{
+        \tanh \left( {\beta \cdot \eta} \right)+ \tanh{ \left( \beta \left( \xi_f - \eta \right) \right) }
+        }
+        { \tanh{\left( \beta \cdot \eta \right)} + \tanh{\left( \beta \left( 1-\eta \right)\right)} } & \\
+    \end{aligned}
+    \label{eq:objective_function}
+    \end{equation}
+    \end{block}
+
+    \begin{block}{bMIR Metric}
+
+
+    \end{block}
+    
+    \begin{block}{References}
+    
+        \nocite{Vaswani2017AttentionNeed}
+        \AtNextBibliography{\small}
+        \printbibliography
+        
+    \end{block}
+    
+\end{column}
+\separatorcolumn
+\end{columns}
+\end{frame}

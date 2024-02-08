@@ -1,0 +1,23 @@
+% CustomTableSty.sty
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{CustomTableSty}
+
+% Check if xcolor is already loaded
+\@ifpackageloaded{xcolor}{}{\RequirePackage[table]{xcolor}}
+
+\definecolor{tablegreen}{RGB}{144,238,144}  % Define your green color
+
+\newcommand{\rowcolorfirst}{\rowcolor{tablegreen}}
+\newcommand{\rowcolorreset}{\gdef\CT@row@color{\CT@row@color@reset}}
+
+\let\originaltabular\tabular
+\let\endoriginaltabular\endtabular
+
+\RequirePackage{etoolbox}
+
+\preto\tabular{\gdef\CT@row@color{}}
+\preto\tabular{\rowcolorfirst}
+\preto\endtabular{\rowcolorreset}
+
+\endinput

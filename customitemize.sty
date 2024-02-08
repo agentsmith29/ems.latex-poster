@@ -1,0 +1,22 @@
+% CustomSty.sty
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{customitemize}
+
+\RequirePackage{enumitem}
+
+% Define a new itemize environment with custom settings
+\newlist{myitemize}{itemize}{1}
+\setlist[myitemize,1]{
+  label={\usebeamercolor[fg]{item}\tiny$\blacksquare$},  % Set the blacksquare symbol
+  left=4ex,         % Adjust the left margin
+  itemsep=4pt,      % Set the space between items
+}
+
+% If you want to keep the original itemize environment, you can save it and redefine it
+\let\originalitemize\itemize
+\let\endoriginalitemize\enditemize
+
+\renewenvironment{itemize}{\begin{myitemize}}{\end{myitemize}}
+
+\endinput
